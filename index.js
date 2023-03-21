@@ -27,6 +27,7 @@ async function FastClaim() {
   if (currentBlock >= blockHasClaimed.toString()) {
     await contract.claim();
     const amount = await ArbToken.balanceOf(wallet.address);
+    console.log(`You recevied : ${parseInt(amount.toString())} $ARB.`);
     await ArbToken.transfer(RECEIVER_ADDRESS, amount);
   } else {
     console.log(
