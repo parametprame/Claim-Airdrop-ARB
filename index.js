@@ -11,6 +11,7 @@ async function FastClaim() {
   const RPC_ETHEREUM = process.env.RPC_ETHEREUM;
   const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
   const CONTRACT_TOKEN = process.env.CONTRACT_TOKEN;
+  const RECEIVER_ADDRESS = process.env.RECEIVER_ADDRESS;
 
   const provider = new ethers.providers.JsonRpcProvider(RPC);
 
@@ -26,7 +27,7 @@ async function FastClaim() {
   if (currentBlock >= blockHasClaimed.toString()) {
     await contract.claim();
     const amount = await ArbToken.balanceOf(wallet.address);
-    await ArbToken.transfer("to", amount);
+    await ArbToken.transfer(RECEIVER_ADDRESS, amount);
   } else {
     console.log(
       `Not time to claim token. Time To Claim : ${blockHasClaimed.toString()}, Current Time : ${currentBlock}`
